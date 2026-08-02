@@ -80,19 +80,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Northwind — SaaS Analytics Dashboard" },
+      { title: "Overview — Northwind Analytics Dashboard" },
       {
         name: "description",
         content:
-          "A modern SaaS dashboard for revenue, users and product analytics with dark mode and responsive layouts.",
+          "Track revenue, active users, sessions and subscription growth in one clean SaaS analytics dashboard.",
       },
-      { property: "og:title", content: "Northwind — SaaS Analytics Dashboard" },
+      { property: "og:title", content: "Overview — Northwind Analytics Dashboard" },
       {
         property: "og:description",
-        content: "Revenue, users and product analytics in one modern dashboard.",
+        content: "Track revenue, active users, sessions and subscription growth in one clean SaaS analytics dashboard.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Overview — Northwind Analytics Dashboard" },
+      { name: "twitter:description", content: "Track revenue, active users, sessions and subscription growth in one clean SaaS analytics dashboard." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5b0d9a2c-01fe-41a1-a702-5a6d83aad4f5/id-preview-206081ca--fddeaf30-57f2-4b41-bab9-fc7e298ddd4d.lovable.app-1785712277993.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5b0d9a2c-01fe-41a1-a702-5a6d83aad4f5/id-preview-206081ca--fddeaf30-57f2-4b41-bab9-fc7e298ddd4d.lovable.app-1785712277993.png" },
     ],
     links: [
       {

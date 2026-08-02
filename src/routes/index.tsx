@@ -19,7 +19,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Overview — Northwind Analytics Dashboard" },
       {
         property: "og:description",
-        content: "Revenue, users, sessions and subscription growth at a glance.",
+        content: "Track revenue, active users, sessions and subscription growth in one clean SaaS analytics dashboard.",
       },
     ],
   }),
