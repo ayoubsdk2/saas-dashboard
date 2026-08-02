@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { users } from "@/lib/mock-data";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/users")({
+export const Route = createFileRoute("/_authenticated/users")({
   head: () => ({
     meta: [
       { title: "Users — Northwind Dashboard" },
