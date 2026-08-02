@@ -17,7 +17,8 @@ export type PlanRow = { plan: string; subscribers: number };
 export type TeamMemberRow = {
   id: string;
   full_name: string;
-  email: string;
+  /** Only visible to workspace admins; null when redacted. */
+  email: string | null;
   role: string;
   plan: string;
   status: string;
