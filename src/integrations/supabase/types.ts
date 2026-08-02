@@ -14,6 +14,126 @@ export type Database = {
   }
   public: {
     Tables: {
+      activity_events: {
+        Row: {
+          action: string
+          actor_name: string
+          created_at: string
+          id: string
+          kind: string
+          occurred_at: string
+          target: string
+        }
+        Insert: {
+          action: string
+          actor_name: string
+          created_at?: string
+          id?: string
+          kind: string
+          occurred_at?: string
+          target: string
+        }
+        Update: {
+          action?: string
+          actor_name?: string
+          created_at?: string
+          id?: string
+          kind?: string
+          occurred_at?: string
+          target?: string
+        }
+        Relationships: []
+      }
+      daily_metrics: {
+        Row: {
+          created_at: string
+          day: string
+          label: string
+          sessions: number
+          signups: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          day: string
+          label: string
+          sessions?: number
+          signups?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          day?: string
+          label?: string
+          sessions?: number
+          signups?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      monthly_metrics: {
+        Row: {
+          active_users: number
+          avg_contract: number
+          churn_rate: number
+          created_at: string
+          expenses: number
+          label: string
+          month_start: string
+          mrr: number
+          revenue: number
+          updated_at: string
+        }
+        Insert: {
+          active_users?: number
+          avg_contract?: number
+          churn_rate?: number
+          created_at?: string
+          expenses?: number
+          label: string
+          month_start: string
+          mrr?: number
+          revenue?: number
+          updated_at?: string
+        }
+        Update: {
+          active_users?: number
+          avg_contract?: number
+          churn_rate?: number
+          created_at?: string
+          expenses?: number
+          label?: string
+          month_start?: string
+          mrr?: number
+          revenue?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      plan_distribution: {
+        Row: {
+          created_at: string
+          plan: string
+          sort_order: number
+          subscribers: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          plan: string
+          sort_order?: number
+          subscribers?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          plan?: string
+          sort_order?: number
+          subscribers?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -40,6 +160,42 @@ export type Database = {
           full_name?: string | null
           id?: string
           job_title?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      team_members: {
+        Row: {
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          last_active_at: string | null
+          plan: string
+          role: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          last_active_at?: string | null
+          plan: string
+          role: string
+          status: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          last_active_at?: string | null
+          plan?: string
+          role?: string
+          status?: string
           updated_at?: string
         }
         Relationships: []
