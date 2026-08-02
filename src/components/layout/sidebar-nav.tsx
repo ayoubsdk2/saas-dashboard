@@ -1,13 +1,15 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard, Users, Settings, LifeBuoy } from "lucide-react";
+import { LayoutDashboard, Users, Settings, LifeBuoy, UserCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import logo from "@/assets/northwind-logo.png";
 
 export const navItems = [
-  { title: "Overview", to: "/", icon: LayoutDashboard },
+  { title: "Overview", to: "/dashboard", icon: LayoutDashboard },
   { title: "Users", to: "/users", icon: Users },
+  { title: "Profile", to: "/profile", icon: UserCircle },
   { title: "Settings", to: "/settings", icon: Settings },
 ] as const;
+
 
 export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = useRouterState({ select: (r) => r.location.pathname });
