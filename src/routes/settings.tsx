@@ -38,10 +38,10 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section className="surface-panel p-5">
-      <h3 className="text-sm font-semibold">{title}</h3>
+    <section className="surface-raised rise-in p-6">
+      <h3 className="font-display text-base font-semibold tracking-tight">{title}</h3>
       <p className="mt-1 text-xs text-muted-foreground">{description}</p>
-      <div className="mt-4 space-y-4">{children}</div>
+      <div className="mt-5 space-y-5">{children}</div>
     </section>
   );
 }
@@ -52,14 +52,19 @@ function SettingsPage() {
 
   return (
     <DashboardShell title="Settings">
-      <PageHeader title="Settings" description="Manage your account and workspace preferences." />
+      <PageHeader
+        eyebrow="Preferences"
+        title="Settings"
+        description="Manage your account and workspace preferences."
+      />
 
       <Tabs defaultValue="profile" className="w-full">
-        <TabsList>
-          <TabsTrigger value="profile">Profile</TabsTrigger>
-          <TabsTrigger value="workspace">Workspace</TabsTrigger>
-          <TabsTrigger value="appearance">Appearance</TabsTrigger>
+        <TabsList className="rounded-xl">
+          <TabsTrigger value="profile" className="rounded-lg">Profile</TabsTrigger>
+          <TabsTrigger value="workspace" className="rounded-lg">Workspace</TabsTrigger>
+          <TabsTrigger value="appearance" className="rounded-lg">Appearance</TabsTrigger>
         </TabsList>
+
 
         <TabsContent value="profile" className="mt-4 space-y-4">
           <Section title="Profile" description="This information is visible to your teammates.">
