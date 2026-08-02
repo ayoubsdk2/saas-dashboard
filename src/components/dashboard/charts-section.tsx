@@ -147,7 +147,7 @@ export function ChartsSection() {
               isAnimationActive={false}
             >
               {planSplit.map((_, i) => (
-                <Cell key={i} fill={`var(--color-chart-${i + 1})`} />
+                <Cell key={i} fill={["var(--color-chart-1)","var(--color-chart-2)","var(--color-chart-3)","var(--color-chart-5)"][i % 4]} />
               ))}
             </Pie>
             <Tooltip contentStyle={tooltipStyle} />
