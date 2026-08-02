@@ -63,8 +63,14 @@ function AuthPage() {
     const form = new FormData(event.currentTarget);
     const email = emailSchema.safeParse(form.get("email"));
     const password = passwordSchema.safeParse(form.get("password"));
-    if (!email.success) return toast.error(email.error.issues[0]!.message);
-    if (!password.success) return toast.error(password.error.issues[0]!.message);
+    if (!email.success) {
+      toast.error(email.error.issues[0]!.message);
+      return;
+    }
+    if (!password.success) {
+      toast.error(password.error.issues[0]!.message);
+      return;
+    }
 
     setPending("signin");
     const { error } = await supabase.auth.signInWithPassword({
@@ -90,9 +96,18 @@ function AuthPage() {
     const name = nameSchema.safeParse(form.get("name"));
     const email = emailSchema.safeParse(form.get("email"));
     const password = passwordSchema.safeParse(form.get("password"));
-    if (!name.success) return toast.error(name.error.issues[0]!.message);
-    if (!email.success) return toast.error(email.error.issues[0]!.message);
-    if (!password.success) return toast.error(password.error.issues[0]!.message);
+    if (!name.success) {
+      toast.error(name.error.issues[0]!.message);
+      return;
+    }
+    if (!email.success) {
+      toast.error(email.error.issues[0]!.message);
+      return;
+    }
+    if (!password.success) {
+      toast.error(password.error.issues[0]!.message);
+      return;
+    }
 
     setPending("signup");
     const { data, error } = await supabase.auth.signUp({
