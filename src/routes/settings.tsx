@@ -66,7 +66,7 @@ function SettingsPage() {
         </TabsList>
 
 
-        <TabsContent value="profile" className="mt-4 space-y-4">
+        <TabsContent value="profile" className="mt-5 space-y-5">
           <Section title="Profile" description="This information is visible to your teammates.">
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
@@ -82,11 +82,11 @@ function SettingsPage() {
               <Label htmlFor="bio">Bio</Label>
               <Textarea id="bio" rows={3} defaultValue="Building infrastructure at Northwind." />
             </div>
-            <Button size="sm">Save changes</Button>
+            <Button size="sm" className="rounded-xl">Save changes</Button>
           </Section>
         </TabsContent>
 
-        <TabsContent value="workspace" className="mt-4 space-y-4">
+        <TabsContent value="workspace" className="mt-5 space-y-5">
           <Section title="Workspace" description="Defaults applied to every project.">
             <div className="space-y-2">
               <Label htmlFor="workspace">Workspace name</Label>
@@ -113,7 +113,7 @@ function SettingsPage() {
           </Section>
         </TabsContent>
 
-        <TabsContent value="appearance" className="mt-4 space-y-4">
+        <TabsContent value="appearance" className="mt-5 space-y-5">
           <Section title="Appearance" description="Customize how the dashboard looks for you.">
             <div className="flex items-center justify-between gap-4">
               <div className="min-w-0">
