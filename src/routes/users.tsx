@@ -27,10 +27,11 @@ export const Route = createFileRoute("/users")({
 });
 
 const statusStyles: Record<string, string> = {
-  Active: "bg-success/12 text-success",
-  Invited: "bg-warning/15 text-warning",
-  Suspended: "bg-destructive/12 text-destructive",
+  Active: "bg-success/12 text-success ring-success/25",
+  Invited: "bg-warning/15 text-warning ring-warning/25",
+  Suspended: "bg-destructive/12 text-destructive ring-destructive/25",
 };
+
 
 function UsersPage() {
   const [query, setQuery] = useState("");
