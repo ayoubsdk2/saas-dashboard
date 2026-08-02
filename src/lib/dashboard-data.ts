@@ -86,11 +86,11 @@ export const activityEventsQuery = queryOptions({
   queryKey: ["activity_events"],
   queryFn: async () =>
     unwrap<ActivityRow[]>(
-      await supabase
+      (await supabase
         .from("activity_events")
         .select("id, actor_name, action, target, kind, occurred_at")
         .order("occurred_at", { ascending: false })
-        .limit(8),
+        .limit(8)) as unknown as { data: ActivityRow[] | null; error: { message: string } | null },
     ),
 });
 
