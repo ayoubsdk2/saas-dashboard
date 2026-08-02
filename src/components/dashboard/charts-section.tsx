@@ -95,6 +95,7 @@ export function ChartsSection() {
               stroke="var(--color-chart-1)"
               strokeWidth={2}
               fill="url(#revFill)"
+              isAnimationActive={false}
             />
             <Area
               type="monotone"
@@ -102,6 +103,7 @@ export function ChartsSection() {
               stroke="var(--color-chart-2)"
               strokeWidth={2}
               fill="url(#expFill)"
+              isAnimationActive={false}
             />
           </AreaChart>
         </ResponsiveContainer>
@@ -118,6 +120,7 @@ export function ChartsSection() {
               outerRadius="82%"
               paddingAngle={3}
               stroke="none"
+              isAnimationActive={false}
             >
               {planSplit.map((_, i) => (
                 <Cell key={i} fill={`var(--color-chart-${i + 1})`} />
@@ -139,8 +142,8 @@ export function ChartsSection() {
             <XAxis dataKey="day" {...axisProps} />
             <YAxis {...axisProps} />
             <Tooltip contentStyle={tooltipStyle} cursor={{ fill: "var(--color-muted)" }} />
-            <Bar dataKey="sessions" fill="var(--color-chart-1)" radius={[4, 4, 0, 0]} />
-            <Bar dataKey="signups" fill="var(--color-chart-3)" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="sessions" fill="var(--color-chart-1)" radius={[4, 4, 0, 0]} isAnimationActive={false} />
+            <Bar dataKey="signups" fill="var(--color-chart-3)" radius={[4, 4, 0, 0]} isAnimationActive={false} />
           </BarChart>
         </ResponsiveContainer>
       </ChartPanel>
