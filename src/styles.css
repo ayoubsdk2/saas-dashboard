@@ -175,3 +175,106 @@
   background-clip: text;
   color: transparent;
 }
+
+@utility surface-raised {
+  position: relative;
+  border-radius: var(--radius-2xl);
+  border: 1px solid var(--color-border);
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--color-card) 92%, var(--color-foreground) 8%),
+    var(--color-card)
+  );
+  box-shadow: var(--shadow-panel);
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, var(--color-foreground) 22%, transparent),
+      transparent
+    );
+    pointer-events: none;
+  }
+}
+
+@utility card-hover {
+  transition:
+    transform 0.4s var(--ease-out-expo),
+    border-color 0.3s ease,
+    box-shadow 0.4s var(--ease-out-expo);
+
+  &:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in oklab, var(--color-primary) 40%, var(--color-border));
+    box-shadow: var(--shadow-glow);
+  }
+}
+
+@utility ambient-glow {
+  position: relative;
+  isolation: isolate;
+
+  &::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: -22rem;
+    left: 50%;
+    width: min(72rem, 130%);
+    height: 42rem;
+    transform: translateX(-50%);
+    pointer-events: none;
+    background:
+      radial-gradient(
+        45% 45% at 30% 40%,
+        color-mix(in oklab, var(--color-primary) 26%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        40% 40% at 72% 30%,
+        color-mix(in oklab, var(--color-chart-5) 20%, transparent),
+        transparent 70%
+      );
+    filter: blur(28px);
+    opacity: 0.75;
+  }
+}
+
+@utility grid-backdrop {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--color-foreground) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--color-foreground) 6%, transparent) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 78%);
+}
+
+@utility brand-mark {
+  background-image: linear-gradient(
+    140deg,
+    color-mix(in oklab, var(--color-primary) 90%, white 10%),
+    color-mix(in oklab, var(--color-chart-5) 75%, var(--color-primary) 25%)
+  );
+  box-shadow: 0 6px 20px -8px color-mix(in oklab, var(--color-primary) 80%, transparent);
+}
+
+@utility rise-in {
+  animation: rise-in 0.6s var(--ease-out-expo) both;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
