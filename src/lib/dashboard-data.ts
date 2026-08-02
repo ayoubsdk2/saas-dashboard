@@ -17,7 +17,8 @@ export type PlanRow = { plan: string; subscribers: number };
 export type TeamMemberRow = {
   id: string;
   full_name: string;
-  email: string;
+  /** Only visible to workspace admins; null when redacted. */
+  email: string | null;
   role: string;
   plan: string;
   status: string;
@@ -73,13 +74,29 @@ export const planDistributionQuery = queryOptions({
 
 export const teamMembersQuery = queryOptions({
   queryKey: ["team_members"],
-  queryFn: async () =>
-    unwrap<TeamMemberRow[]>(
-      await supabase
-        .from("team_members")
-        .select("id, full_name, email, role, plan, status, last_active_at")
-        .order("created_at", { ascending: true }),
-    ),
+  queryFn: async (): Promise<TeamMemberRow[]> => {
+    const { data, error } = await supabase
+      .from("team_members")
+      .select("id, full_name, role, plan, status, last_active_at, team_member_contacts(email)")
+      .order("created_at", { ascending: true });
+    if (error) throw new Error(error.message);
+    return (data ?? []).map((m) => {
+      const contacts = m.team_member_contacts as unknown as
+        | { email: string }[]
+        | { email: string }
+        | null;
+      const email = Array.isArray(contacts) ? (contacts[0]?.email ?? null) : (contacts?.email ?? null);
+      return {
+        id: m.id,
+        full_name: m.full_name,
+        email,
+        role: m.role,
+        plan: m.plan,
+        status: m.status,
+        last_active_at: m.last_active_at,
+      };
+    });
+  },
 });
 
 export const activityEventsQuery = queryOptions({

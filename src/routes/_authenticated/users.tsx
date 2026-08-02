@@ -43,7 +43,7 @@ function UsersPage() {
       (data ?? []).map((m) => ({
         id: m.id,
         name: m.full_name,
-        email: m.email,
+        email: m.email ?? "Email hidden — admins only",
         role: m.role,
         plan: m.plan,
         status: m.status,

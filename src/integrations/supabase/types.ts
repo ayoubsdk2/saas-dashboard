@@ -164,10 +164,35 @@ export type Database = {
         }
         Relationships: []
       }
-      team_members: {
+      team_member_contacts: {
         Row: {
           created_at: string
           email: string
+          member_id: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          member_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          member_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "team_member_contacts_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: true
+            referencedRelation: "team_members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      team_members: {
+        Row: {
+          created_at: string
           full_name: string
           id: string
           last_active_at: string | null
@@ -178,7 +203,6 @@ export type Database = {
         }
         Insert: {
           created_at?: string
-          email: string
           full_name: string
           id?: string
           last_active_at?: string | null
@@ -189,7 +213,6 @@ export type Database = {
         }
         Update: {
           created_at?: string
-          email?: string
           full_name?: string
           id?: string
           last_active_at?: string | null
@@ -200,15 +223,43 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_workspace_user: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "member"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -335,6 +386,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "member"],
+    },
   },
 } as const
