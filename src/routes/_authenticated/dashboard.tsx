@@ -7,7 +7,9 @@ import { ChartsSection } from "@/components/dashboard/charts-section";
 import { QuickActions } from "@/components/dashboard/quick-actions";
 import { RecentActivity } from "@/components/dashboard/recent-activity";
 import { Button } from "@/components/ui/button";
-import { kpiSparklines } from "@/lib/mock-data";
+import { useQuery } from "@tanstack/react-query";
+import { buildKpis, monthlyMetricsQuery } from "@/lib/dashboard-data";
+import { useAuth } from "@/lib/auth";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
@@ -28,19 +30,20 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
   component: Overview,
 });
 
-const stats = [
-  { label: "MRR", value: "$78,250", delta: "12.4%", trend: "up" as const, icon: DollarSign, hint: "vs. last month", series: kpiSparklines.mrr },
-  { label: "Active users", value: "2,841", delta: "8.1%", trend: "up" as const, icon: UsersIcon, hint: "of 5,000 seats", series: kpiSparklines.users },
-  { label: "Churn", value: "1.9%", delta: "0.4%", trend: "down" as const, icon: Activity, hint: "30-day rolling", series: kpiSparklines.churn },
-  { label: "Avg. contract", value: "$1,120", delta: "3.2%", trend: "up" as const, icon: CreditCard, hint: "annualized", series: kpiSparklines.contract },
-];
+
+const kpiIcons = [DollarSign, UsersIcon, Activity, CreditCard];
 
 function Overview() {
+  const { user } = useAuth();
+  const { data: months, isPending } = useQuery(monthlyMetricsQuery);
+  const stats = buildKpis(months ?? []);
+  const firstName = (user?.name ?? "").split(" ")[0] || "there";
+
   return (
     <DashboardShell title="Overview">
       <PageHeader
         eyebrow="All systems operational"
-        title="Good evening, Ada"
+        title={`Welcome back, ${firstName}`}
         description="Here's how Northwind performed over the last 30 days."
         actions={
           <>
@@ -58,9 +61,13 @@ function Overview() {
       />
 
       <div className="grid gap-4 sm:grid-cols-2 sm:gap-5 xl:grid-cols-4">
-        {stats.map((stat, i) => (
-          <StatCard key={stat.label} {...stat} index={i} />
-        ))}
+        {isPending
+          ? [0, 1, 2, 3].map((i) => (
+              <div key={i} className="surface-raised h-[9.5rem] animate-pulse" />
+            ))
+          : stats.map((stat, i) => (
+              <StatCard key={stat.label} {...stat} icon={kpiIcons[i] ?? Activity} index={i} />
+            ))}
       </div>
 
       <div className="mt-5 sm:mt-6">
