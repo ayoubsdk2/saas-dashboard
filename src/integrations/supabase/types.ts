@@ -164,10 +164,35 @@ export type Database = {
         }
         Relationships: []
       }
-      team_members: {
+      team_member_contacts: {
         Row: {
           created_at: string
           email: string
+          member_id: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          member_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          member_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "team_member_contacts_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: true
+            referencedRelation: "team_members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      team_members: {
+        Row: {
+          created_at: string
           full_name: string
           id: string
           last_active_at: string | null
@@ -178,7 +203,6 @@ export type Database = {
         }
         Insert: {
           created_at?: string
-          email: string
           full_name: string
           id?: string
           last_active_at?: string | null
@@ -189,7 +213,6 @@ export type Database = {
         }
         Update: {
           created_at?: string
-          email?: string
           full_name?: string
           id?: string
           last_active_at?: string | null
@@ -234,18 +257,6 @@ export type Database = {
         Returns: boolean
       }
       is_workspace_user: { Args: { _user_id: string }; Returns: boolean }
-      team_directory: {
-        Args: never
-        Returns: {
-          email: string
-          full_name: string
-          id: string
-          last_active_at: string
-          plan: string
-          role: string
-          status: string
-        }[]
-      }
     }
     Enums: {
       app_role: "admin" | "member"
