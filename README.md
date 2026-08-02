@@ -1,4 +1,34 @@
-# Apex Dashboard
+# SaaS Dashboard
+
+A modern SaaS dashboard built with Next.js, React, TypeScript and Tailwind CSS.
+
+## Features
+
+- Modern dashboard UI
+- Responsive design
+- Dark mode
+- Analytics cards
+- Sidebar navigation
+- Settings page
+- User management
+
+## Tech Stack
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+
+## Installation
+
+npm install
+npm run dev
+## Roadmap
+
+- [ ] Authentication
+- [ ] Database integration
+- [ ] Stripe payments
+- [ ] Notifications# Apex Dashboard
 
 Build a modern SaaS dashboard using Next.js 15, React, TypeScript and Tailwind CSS.
 
