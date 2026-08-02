@@ -1,5 +1,10 @@
 import { AlertTriangle, CreditCard, ShieldCheck, Users, Zap, type LucideIcon } from "lucide-react";
-import { activityFeed, type ActivityKind } from "@/lib/mock-data";
+import { useQuery } from "@tanstack/react-query";
+import {
+  activityEventsQuery,
+  relativeTime,
+  type ActivityKind,
+} from "@/lib/dashboard-data";
 import { cn } from "@/lib/utils";
 
 const kindMeta: Record<ActivityKind, { icon: LucideIcon; className: string }> = {
@@ -11,6 +16,16 @@ const kindMeta: Record<ActivityKind, { icon: LucideIcon; className: string }> = 
 };
 
 export function RecentActivity() {
+  const { data, isPending } = useQuery(activityEventsQuery);
+  const activityFeed = (data ?? []).map((e) => ({
+    id: e.id,
+    actor: e.actor_name,
+    action: e.action,
+    target: e.target,
+    kind: (kindMeta[e.kind] ? e.kind : "system") as ActivityKind,
+    time: relativeTime(e.occurred_at),
+  }));
+
   return (
     <section className="surface-raised rise-in p-5 sm:p-6">
       <div className="flex items-baseline justify-between gap-3">
@@ -19,6 +34,11 @@ export function RecentActivity() {
       </div>
 
       <ul className="mt-5 space-y-1">
+        {isPending
+          ? [0, 1, 2, 3].map((i) => (
+              <li key={i} className="h-14 animate-pulse rounded-xl bg-muted/30" />
+            ))
+          : null}
         {activityFeed.map((item) => {
           const meta = kindMeta[item.kind];
           return (
