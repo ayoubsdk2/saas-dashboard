@@ -13,7 +13,12 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { activitySeries, planSplit, revenueSeries } from "@/lib/mock-data";
+import { useQuery } from "@tanstack/react-query";
+import {
+  dailyMetricsQuery,
+  monthlyMetricsQuery,
+  planDistributionQuery,
+} from "@/lib/dashboard-data";
 
 function ChartPanel({
   title,
@@ -71,7 +76,25 @@ export function ChartsSection() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
-  if (!mounted) {
+  const months = useQuery(monthlyMetricsQuery);
+  const days = useQuery(dailyMetricsQuery);
+  const plans = useQuery(planDistributionQuery);
+
+  const revenueSeries = (months.data ?? []).map((m) => ({
+    month: m.label,
+    revenue: Number(m.revenue),
+    expenses: Number(m.expenses),
+  }));
+  const activitySeries = (days.data ?? []).map((d) => ({
+    day: d.label,
+    sessions: d.sessions,
+    signups: d.signups,
+  }));
+  const planSplit = (plans.data ?? []).map((p) => ({ name: p.plan, value: p.subscribers }));
+
+  const loading = months.isPending || days.isPending || plans.isPending;
+
+  if (!mounted || loading) {
     return (
       <div className="grid gap-5 lg:grid-cols-3">
         {[0, 1, 2].map((i) => (

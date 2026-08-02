@@ -5,7 +5,8 @@ import { DashboardShell } from "@/components/layout/dashboard-shell";
 import { PageHeader } from "@/components/dashboard/page-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { users } from "@/lib/mock-data";
+import { useQuery } from "@tanstack/react-query";
+import { initialsOf, relativeTime, teamMembersQuery } from "@/lib/dashboard-data";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_authenticated/users")({
@@ -35,21 +36,37 @@ const statusStyles: Record<string, string> = {
 
 function UsersPage() {
   const [query, setQuery] = useState("");
+  const { data, isPending } = useQuery(teamMembersQuery);
+
+  const members = useMemo(
+    () =>
+      (data ?? []).map((m) => ({
+        id: m.id,
+        name: m.full_name,
+        email: m.email,
+        role: m.role,
+        plan: m.plan,
+        status: m.status,
+        initials: initialsOf(m.full_name),
+        lastActive: relativeTime(m.last_active_at),
+      })),
+    [data],
+  );
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return users;
-    return users.filter(
+    if (!q) return members;
+    return members.filter(
       (u) => u.name.toLowerCase().includes(q) || u.email.toLowerCase().includes(q),
     );
-  }, [query]);
+  }, [query, members]);
 
   return (
     <DashboardShell title="Users">
       <PageHeader
         eyebrow="Team directory"
         title="Users"
-        description={`${users.length} members across 4 workspaces.`}
+        description={`${members.length} members across your workspaces.`}
         actions={
           <Button size="sm" className="rounded-xl shadow-[0_10px_30px_-12px_var(--color-primary)]">
             Invite member
@@ -110,7 +127,14 @@ function UsersPage() {
                   <td className="px-5 py-3.5 text-muted-foreground">{user.lastActive}</td>
                 </tr>
               ))}
-              {filtered.length === 0 && (
+              {isPending && (
+                <tr>
+                  <td colSpan={5} className="px-5 py-12 text-center text-muted-foreground">
+                    Loading members…
+                  </td>
+                </tr>
+              )}
+              {!isPending && filtered.length === 0 && (
                 <tr>
                   <td colSpan={5} className="px-5 py-12 text-center text-muted-foreground">
 
