@@ -85,7 +85,7 @@ export function ChartsSection() {
     <div className="grid gap-5 lg:grid-cols-3">
       <ChartPanel
         title="Revenue vs. expenses"
-        subtitle="Last 8 months, USD"
+        subtitle="Trailing 12 months, USD"
         className="lg:col-span-2"
         legend={[
           { label: "Revenue", color: "var(--color-chart-1)" },
