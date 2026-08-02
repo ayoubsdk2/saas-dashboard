@@ -31,7 +31,7 @@ export const planSplit = [
 ];
 
 /** Sparkline data for each KPI tile — 12 points, most recent last. */
-export const kpiSparklines: Record<string, number[]> = {
+export const kpiSparklines = {
   mrr: [38.4, 41.1, 44.8, 47.4, 46.1, 50.3, 55.8, 54.3, 60.9, 66.5, 72.2, 78.3],
   users: [1980, 2064, 2131, 2208, 2246, 2317, 2402, 2455, 2568, 2661, 2748, 2841],
   churn: [3.1, 3.0, 2.8, 2.9, 2.6, 2.5, 2.4, 2.3, 2.2, 2.1, 2.0, 1.9],
