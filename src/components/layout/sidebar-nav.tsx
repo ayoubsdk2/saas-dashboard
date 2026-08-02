@@ -1,6 +1,7 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard, Users, Settings, LifeBuoy, Sparkles } from "lucide-react";
+import { LayoutDashboard, Users, Settings, LifeBuoy } from "lucide-react";
 import { cn } from "@/lib/utils";
+import logo from "@/assets/northwind-logo.png";
 
 export const navItems = [
   { title: "Overview", to: "/", icon: LayoutDashboard },
@@ -18,17 +19,18 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
         className="pointer-events-none absolute -left-16 top-0 h-64 w-64 rounded-full bg-primary/15 blur-3xl"
       />
 
-      <div className="relative flex h-16 items-center gap-3 px-5">
-        <span className="brand-mark grid h-8 w-8 shrink-0 place-items-center rounded-[10px] text-white">
-          <Sparkles className="h-4 w-4" />
+      <div className="relative flex h-16 items-center gap-3 border-b border-sidebar-border/70 px-5">
+        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-[11px] border border-border/70 bg-background/40 shadow-[0_6px_20px_-10px_var(--color-primary)]">
+          <img src={logo} alt="Northwind logo" width={816} height={816} className="h-6 w-6" />
         </span>
         <span className="min-w-0 flex-1">
-          <span className="block truncate font-display text-[15px] font-semibold tracking-tight text-foreground">
+          <span className="block truncate font-display text-[15px] font-semibold tracking-[-0.02em] text-foreground">
             Northwind
           </span>
           <span className="block truncate text-[11px] text-muted-foreground">Scale workspace</span>
         </span>
       </div>
+
 
       <nav className="relative mt-3 flex flex-1 flex-col gap-1 px-3">
         <p className="px-3 pb-2 pt-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground/70">
