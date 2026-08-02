@@ -93,24 +93,26 @@ function UsersPage() {
                       </div>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-muted-foreground">{user.role}</td>
-                  <td className="px-4 py-3 text-muted-foreground">{user.plan}</td>
-                  <td className="px-4 py-3">
+                  <td className="px-5 py-3.5 text-muted-foreground">{user.role}</td>
+                  <td className="px-5 py-3.5 text-muted-foreground">{user.plan}</td>
+                  <td className="px-5 py-3.5">
                     <span
                       className={cn(
-                        "inline-flex rounded-full px-2 py-0.5 text-xs font-medium",
+                        "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ring-1 ring-inset",
                         statusStyles[user.status],
                       )}
                     >
+                      <span className="h-1.5 w-1.5 rounded-full bg-current" />
                       {user.status}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-muted-foreground">{user.lastActive}</td>
+                  <td className="px-5 py-3.5 text-muted-foreground">{user.lastActive}</td>
                 </tr>
               ))}
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={5} className="px-4 py-10 text-center text-muted-foreground">
+                  <td colSpan={5} className="px-5 py-12 text-center text-muted-foreground">
+
                     No members match "{query}".
                   </td>
                 </tr>
